@@ -1,0 +1,187 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="specialoffer.css">
+    <title>Monthly Male Enhancement Newsletter</title>
+</head>
+<body id="body">
+    <audio id="polkaMusic" autoplay loop>
+        <source src="your-polka-music-file.mp3" type="audio/mpeg">
+    </audio>
+    <div class="container glitch">
+        <h1 class="title">Monthly Male Enhancement Newsletter</h1>
+        <p class="message">Welcome to your exclusive subscription, Paul!</p>
+        <button class="button" onclick="startPrank()">View This Month's Tips</button>
+        <div class="hidden-message" id="hiddenMessage"> 🍆 🎉 🍆</div>
+    </div>
+
+    <div id="ppSlide" class="powerpoint-slide">
+        <span class="close-button" onclick="closePowerPoint()">&times;</span>
+        <div class="slide-content">
+            <h2 class="tip-title">Top Secret Male Enhancement Tips</h2>
+            <img id="baconImage" src="https://baconmockup.com/650/650/" alt="Bacon placeholder" class="spinning-image">
+            <p id="enhancementTip" class="tip-text"></p>
+            <button onclick="nextTip()" class="next-tip-btn">Next Sizzling Tip!</button>
+        </div>
+    </div>
+
+    <div id="cursorTrail"></div>
+    <div id="danceParty"></div>
+
+    <script>
+        const baconSizes = [
+            {width: 650, height: 650},
+            {width: 750, height: 980},
+            {width: 450, height: 550},
+            {width: 800, height: 600},
+            {width: 500, height: 700},
+            {width: 600, height: 400},
+            {width: 700, height: 700},
+        ];
+
+        const tips = [
+            "Eat more bananas for potassium boost!",
+            "Try our patented 'Stretch and Grow' technique!",
+            "Wear tighter pants for optical illusion!",
+            "Master the art of strategic lighting!",
+            "Learn the ancient art of male origami!",
+            "Try just the tip."
+        ];
+
+        let currentTip = 0;
+        let clickCount = 0;
+
+        function nextTip() {
+            document.getElementById('enhancementTip').textContent = tips[currentTip];
+            
+            const randomSize = baconSizes[Math.floor(Math.random() * baconSizes.length)];
+            const baconImage = document.getElementById('baconImage');
+            baconImage.src = `https://baconmockup.com/${randomSize.width}/${randomSize.height}/?random=${Math.random()}`;
+            baconImage.style.width = `${randomSize.width / 3}px`;
+            baconImage.style.height = `${randomSize.height / 3}px`;
+            
+            currentTip = (currentTip + 1) % tips.length;
+        }
+
+        function startPrank() {
+            document.getElementById('hiddenMessage').style.display = 'block';
+            setTimeout(() => {
+                document.getElementById('ppSlide').style.display = 'block';
+                nextTip();
+            }, 200);
+            
+            const polkaMusic = document.getElementById('polkaMusic');
+            let volume = 0.1;
+            polkaMusic.volume = volume;
+            setInterval(() => {
+                if (volume < 1) {
+                    volume += 0.05;
+                    polkaMusic.volume = volume;
+                }
+            }, 5000); // Music gets louder every 5 seconds
+            polkaMusic.play();
+
+            addCursorTrail();
+        }
+
+        function closePowerPoint() {
+            document.getElementById('ppSlide').style.display = 'none';
+        }
+
+        function addCursorTrail() {
+            const numTrails = 15;
+            const trails = [];
+            let mouseX = 0;
+            let mouseY = 0;
+
+            for (let i = 0; i < numTrails; i++) {
+                const trail = document.createElement('div');
+                trail.className = 'trail';
+                document.body.appendChild(trail);
+                trails.push({ element: trail, x: 0, y: 0 });
+            }
+
+            document.addEventListener('mousemove', (e) => {
+                mouseX = e.clientX;
+                mouseY = e.clientY;
+            });
+
+            function animateTrails() {
+                let x = mouseX;
+                let y = mouseY;
+
+                trails.forEach((trail, index) => {
+                    trail.x += (x - trail.x) * (0.1 + index / numTrails * 0.2);
+                    trail.y += (y - trail.y) * (0.1 + index / numTrails * 0.2);
+
+                    trail.element.style.left = `${trail.x - 5}px`;
+                    trail.element.style.top = `${trail.y - 5}px`;
+
+                    x = trail.x;
+                    y = trail.y;
+                });
+
+                requestAnimationFrame(animateTrails);
+            }
+
+            animateTrails();
+        }
+
+        document.getElementById('baconImage').addEventListener('click', () => {
+            clickCount++;
+            if (clickCount >= 2) {
+                document.getElementById('danceParty').style.display = 'block';
+                alert("Congratulations! You've unlocked the secret dance party!");
+                setTimeout(() => {
+                    document.getElementById('danceParty').style.display = 'none';
+                    clickCount = 0;
+                }, 5000);
+            }
+        });
+
+        // Initialize cursor trail
+        addCursorTrail();
+
+        function explodeEmojis() {
+    for (let i = 0; i < 20; i++) {
+        const emoji = document.createElement('div');
+        emoji.textContent = "💥";
+        emoji.style.position = 'fixed';
+        emoji.style.left = `${Math.random() * window.innerWidth}px`;
+        emoji.style.top = `${Math.random() * window.innerHeight}px`;
+        emoji.style.fontSize = `${Math.random() * 50 + 20}px`;
+        emoji.style.opacity = '0';
+        emoji.style.transition = 'opacity 0.5s ease';
+        document.body.appendChild(emoji);
+        setTimeout(() => emoji.style.opacity = '1', i * 100);
+        setTimeout(() => emoji.remove(), 2000);
+    }
+}
+
+document.getElementById('body').addEventListener('click', explodeEmojis);
+
+function createPopup() {
+    const popup = document.createElement('div');
+    popup.className = 'popup';
+    popup.textContent = "Close me if you can!";
+    popup.style.position = 'absolute';
+    popup.style.left = `${Math.random() * window.innerWidth}px`;
+    popup.style.top = `${Math.random() * window.innerHeight}px`;
+    popup.style.padding = '20px';
+    popup.style.backgroundColor = '#ff4500';
+    popup.style.color = '#fff';
+    popup.style.cursor = 'pointer';
+    document.body.appendChild(popup);
+
+    popup.addEventListener('mouseover', () => {
+        popup.style.left = `${Math.random() * window.innerWidth}px`;
+        popup.style.top = `${Math.random() * window.innerHeight}px`;
+    });
+}
+
+setInterval(createPopup, 10000); // Create popups every 10 seconds
+    </script>
+</body>
+</html>
